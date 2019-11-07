@@ -21,8 +21,8 @@ sanitize() {
   fi
 }
 
-#mkdir -p "$WRANGLER_HOME/.wrangler"
-#chmod -R 770 "$WRANGLER_HOME/.wrangler"
+mkdir -p "$HOME/.wrangler"
+chmod -R 770 "$HOME/.wrangler"
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
