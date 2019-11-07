@@ -2,8 +2,8 @@
 
 set -e
 
-export NVM_DIR="/github/workspace/nvm"
 export HOME="/github/workspace"
+export NVM_DIR="/github/workspace/nvm"
 export WRANGLER_HOME="/github/workspace"
 
 # h/t https://github.com/elgohr/Publish-Docker-Github-Action
@@ -15,12 +15,12 @@ sanitize() {
   fi
 }
 
-mkdir -p "$HOME/.wrangler"
-chmod -R 770 "$HOME/.wrangler"
-
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+mkdir -p "$HOME/.wrangler"
+chmod -R 770 "$HOME/.wrangler"
 
 sanitize "${INPUT_EMAIL}" "email"
 sanitize "${INPUT_APIKEY}" "apiKey"
