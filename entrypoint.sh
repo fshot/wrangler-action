@@ -3,13 +3,12 @@
 set -e
 
 export NVM_DIR="/github/workspace/nvm"
+export HOME="/github/workspace"
 
 if [ -z "$INPUT_WORKINGDIRECTORY" ]
 then
-  export HOME="/github/workspace"
   export WRANGLER_HOME="/github/workspace"
 else
-  export HOME="/github/workspace/"$INPUT_WORKINGDIRECTORY
   export WRANGLER_HOME="/github/workspace"/$INPUT_WORKINGDIRECTORY
 fi
 
@@ -22,12 +21,12 @@ sanitize() {
   fi
 }
 
+#mkdir -p "$WRANGLER_HOME/.wrangler"
+#chmod -R 770 "$WRANGLER_HOME/.wrangler"
+
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-mkdir -p "$HOME/.wrangler"
-chmod -R 770 "$HOME/.wrangler"
 
 sanitize "${INPUT_EMAIL}" "email"
 sanitize "${INPUT_APIKEY}" "apiKey"
@@ -37,11 +36,19 @@ export CF_API_KEY="$INPUT_APIKEY"
 
 npm i @cloudflare/wrangler -g
 
-if [ -z "$INPUT_ENVIRONMENT" ]
+if ! [ -z "$INPUT_WORKINGDIRECTORY" ]
 then
   cd $WRANGLER_HOME
+fi
+
+if [ -z "$INPUT_ENVIRONMENT" ]
+then
   wrangler publish
 else
-  cd $WRANGLER_HOME
   wrangler publish -e "$INPUT_ENVIRONMENT"
+fi
+
+if ! [ -z "$INPUT_WORKINGDIRECTORY" ]
+then
+  cd $HOME
 fi
