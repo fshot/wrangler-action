@@ -4,13 +4,7 @@ set -e
 
 export NVM_DIR="/github/workspace/nvm"
 export HOME="/github/workspace"
-
-if [ -z "$INPUT_WORKINGDIRECTORY" ]
-then
-  export WRANGLER_HOME="/github/workspace"
-else
-  export WRANGLER_HOME="/github/workspace"/$INPUT_WORKINGDIRECTORY
-fi
+export WRANGLER_HOME="/github/workspace"
 
 # h/t https://github.com/elgohr/Publish-Docker-Github-Action
 sanitize() {
@@ -38,9 +32,7 @@ npm i @cloudflare/wrangler -g
 
 if ! [ -z "$INPUT_WORKINGDIRECTORY" ]
 then
-  pwd
-  ls -la
-  cd $WRANGLER_HOME
+  cd $INPUT_WORKINGDIRECTORY
 fi
 
 if [ -z "$INPUT_ENVIRONMENT" ]
