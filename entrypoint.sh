@@ -4,13 +4,13 @@ set -e
 
 if [ -z "$INPUT_WORKINGDIRECTORY" ]
 then
-  export HOME="/github/workspace/"$INPUT_WORKINGDIRECTORY
-  export NVM_DIR="/github/workspace/nvm"/$INPUT_WORKINGDIRECTORY
-  export WRANGLER_HOME="/github/workspace"/$INPUT_WORKINGDIRECTORY
-else
   export HOME="/github/workspace"
   export NVM_DIR="/github/workspace/nvm"
   export WRANGLER_HOME="/github/workspace"
+else
+  export HOME="/github/workspace/"$INPUT_WORKINGDIRECTORY
+  export NVM_DIR="/github/workspace/nvm"/$INPUT_WORKINGDIRECTORY
+  export WRANGLER_HOME="/github/workspace"/$INPUT_WORKINGDIRECTORY
 fi
 
 echo $WRANGLER_HOME
