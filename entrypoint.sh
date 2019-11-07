@@ -38,7 +38,9 @@ npm i @cloudflare/wrangler -g
 
 if ! [ -z "$INPUT_WORKINGDIRECTORY" ]
 then
-  cd ./$INPUT_WORKINGDIRECTORY
+  pwd
+  ls -la
+  cd $WRANGLER_HOME
 fi
 
 if [ -z "$INPUT_ENVIRONMENT" ]
