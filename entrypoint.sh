@@ -39,7 +39,9 @@ npm i @cloudflare/wrangler -g
 
 if [ -z "$INPUT_ENVIRONMENT" ]
 then
+  cd $WRANGLER_HOME
   wrangler publish
 else
+  cd $WRANGLER_HOME
   wrangler publish -e "$INPUT_ENVIRONMENT"
 fi
